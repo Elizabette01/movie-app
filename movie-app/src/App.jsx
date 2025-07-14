@@ -1,9 +1,9 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css'
 
-function App() {
+import React from 'react'
 
-
+const App = () => {
   return (
     <div>
       
@@ -12,3 +12,5 @@ function App() {
 }
 
 export default App
+
+

@@ -1,14 +1,36 @@
-// import { useState } from 'react'
-import React from 'react';
+import { useState, useEffect } from 'react'
 
 import hero from "/hero.png";
 import Search from "./Components/Search";
 import MovieCard from './Components/MovieCard';
 
+
+// Base API URL and API KEY
+    
+  const API_BASE_URL = 'https://api.themoviedb.org/3';
+  const API_KEY = import.meta.env.VITE_TMBD_API_KEY;
+
+  const API_OPTIONS = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+      accept: 'application/json',
+    }
+  }
+
+
 const App = () => {
 
   // useStates
-   const [ searchTerm, setSearchTerm ] = useState('');
+  const [ searchTerm, setSearchTerm ] = useState('');
+
+  // Function to make the API calls
+
+  // useEffect to make our API call whenever the page loads
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <main>

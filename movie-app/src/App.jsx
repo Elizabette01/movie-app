@@ -1,10 +1,15 @@
 // import { useState } from 'react'
-import './App.css';
-
 import React from 'react';
+
 import hero from "/hero.png";
+import Search from "./Components/Search";
+import MovieCard from './Components/MovieCard';
 
 const App = () => {
+
+  // useStates
+   const [ searchTerm, setSearchTerm ] = useState('');
+
   return (
     <main>
       <div className="pattern" />
@@ -13,8 +18,10 @@ const App = () => {
         <header>
           <img src={hero} alt="movie poster" className="" />
           <h1>Find <span className="text-gradient">Movies</span> You will enjoy without the hassel</h1>
-          
         </header>
+
+        {/* Passing a useState into the component as a props */}
+       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       </div>
 

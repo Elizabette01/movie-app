@@ -23,8 +23,17 @@ const App = () => {
 
   // useStates
   const [ searchTerm, setSearchTerm ] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
 
   // Function to make the API calls
+  const fetchMovies = async () => {
+    try {
+
+    } catch (error) {
+      console.error(`Error fetching movies: ${error}`);
+      setErrorMessage('Error fetching movies. Please try again later.');
+    }
+  }
 
   // useEffect to make our API call whenever the page loads
 

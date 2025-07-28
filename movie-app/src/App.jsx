@@ -25,21 +25,23 @@ const App = () => {
   const [ searchTerm, setSearchTerm ] = useState('');
   const [errorMessage, setErrorMessage] = useState('')
 
+
   // Function to make the API calls
   const fetchMovies = async () => {
     try {
-
+      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+       const response = await fetch(endpoint, API_OPTIONS);
     } catch (error) {
       console.error(`Error fetching movies: ${error}`);
       setErrorMessage('Error fetching movies. Please try again later.');
     }
   }
 
-  // useEffect to make our API call whenever the page loads
 
+  // useEffect to make our API call whenever the page loads
   useEffect(() => {
 
-  }, [])
+  }, []);
 
   return (
     <main>

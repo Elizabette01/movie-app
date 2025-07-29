@@ -88,7 +88,7 @@ const App = () => {
         <h2 className='text-center mb-14 mt-7'>All Movies</h2>
 
          {loading ? (
-          <ul className="w-[85%] mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-10">
+          <ul className="w-[85%] mx-auto">
             {Array.from({length: 20}).map((_, index) => (
               <LoadingCard key={index} />
             ))}

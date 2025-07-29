@@ -16,3 +16,41 @@ const client = new Client()
 const database = new Databases(client);
 
 // Function to track searches made by different users. It will take the searchTerm and associated movie as parameter
+
+const updateSearchCount = async (searchTerm, movie) => {
+    /**
+   * Logic
+   * 1. Use Appwrite API to check the DB if the searchTerm exist
+   * 2. If it does, update the count
+   * 3. If it doesn't, create a new entry with the search term and count = 1
+   */
+
+  try {
+    // Use Appwrite API to check the DB if the searchTerm exist
+    // The listDocument method accepts 3 paramameter, the database and collection id we want to list our document from. then an array that checks if our query serchterm is equal to the searchterm in our database
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID,[
+      Query.equal('searchTerm', searchTerm)
+    ])
+
+    // If it does, update the count
+    if(result.documents.length > 0) {
+      const doc = result.document[0];
+
+      await database.updateDocument(DATABASE_ID, COLLECTION_ID, doc.$id, { count: doc.count + 1, })
+    }
+    //  If it doesn't, create a new entry with the search term and count = 1
+    else {
+      await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+        searchTerm, 
+        count: 1, 
+        movieID : movie.id,
+        posterURL: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      } )
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export default updateSearchCount;

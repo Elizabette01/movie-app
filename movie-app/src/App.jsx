@@ -92,8 +92,8 @@ const App = () => {
       </div>
 
       <section className='all-movies'>
-        <h2 className='text-center mb-14 mt-7'>All Movies</h2>
-
+        <h2 className='text-center mb-14 mt-7 text-2xl font-bold text-white sm:text-3xl'>All Movies</h2>
+        
          {loading ? (
           <ul className="w-[85%] mx-auto">
             {Array.from({length: 20}).map((_, index) => (

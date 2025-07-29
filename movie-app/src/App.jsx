@@ -6,6 +6,7 @@ import hero from "/hero.png";
 import Search from "./Components/Search";
 import MovieCard from './Components/MovieCard';
 import LoadingCard from './Components/Loading';
+import updateSearchCount from './appwrite';
 
 
 // Base API URL and API KEY
@@ -28,12 +29,13 @@ const App = () => {
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ errorMessage, setErrorMessage ] = useState('');
   const [ movies, setMovies ] = useState([]);
+  const [ trendingMovies, setTrendingMovies ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ debouncedSearch, setDebouncedSearch] = useState('');
 
   // Debounce the search term to prevent making too many API calls
   // by waiting for the user to stop typing fro 1sec
-  useDebounce(() => setDebouncedSearch(searchTerm), 1000, [searchTerm])
+  useDebounce(() => setDebouncedSearch(searchTerm), 1500, [searchTerm])
 
   // Function to make the API calls
   const fetchMovies = async (query = '') => {
@@ -58,7 +60,11 @@ const App = () => {
         return;
       }
 
-       setMovies(data.results || [])
+      setMovies(data.results || [])
+
+      if(query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
 
     } catch (error) {
       console.error(`Error fetching movies: ${error}`);
@@ -93,7 +99,7 @@ const App = () => {
 
       <section className='all-movies'>
         <h2 className='text-center mb-14 mt-7 text-2xl font-bold text-white sm:text-3xl'>All Movies</h2>
-        
+
          {loading ? (
           <ul className="w-[85%] mx-auto">
             {Array.from({length: 20}).map((_, index) => (

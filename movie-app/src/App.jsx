@@ -111,7 +111,7 @@ const App = () => {
       </div>
 
       {trendingMovies.length > 0 && (
-        <section className="trending">
+        <section className="trending mx-auto w-[85%]">
           <h2 className="">Trending Movies</h2>
 
           <ul>

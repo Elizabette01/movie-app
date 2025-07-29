@@ -34,9 +34,9 @@ export const updateSearchCount = async (searchTerm, movie) => {
 
     // If it does, update the count
     if(result.documents.length > 0) {
-      const doc = result.document[0];
+      const doc = result.documents[0];
 
-      await database.updateDocument(DATABASE_ID, COLLECTION_ID, doc.$id, { count: doc.count + 1, })
+      await database.updateDocument(DATABASE_ID, COLLECTION_ID, doc.$id, { count: doc.count+1 })
     }
     //  If it doesn't, create a new entry with the search term and count = 1
     else {

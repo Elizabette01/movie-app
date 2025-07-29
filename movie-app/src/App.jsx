@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import {useDebounce} from 'react-use';
 
 
 import hero from "/hero.png";
@@ -25,10 +26,14 @@ const App = () => {
 
   // useStates
   const [ searchTerm, setSearchTerm ] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [ errorMessage, setErrorMessage ] = useState('');
   const [ movies, setMovies ] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ debouncedSearch, setDebouncedSearch] = useState('');
 
+  // Debounce the search term to prevent making too many API calls
+  // by waiting for the user to stop typing fro 1sec
+  useDebounce(() => setDebouncedSearch(searchTerm), 1000, [searchTerm])
 
   // Function to make the API calls
   const fetchMovies = async (query = '') => {
@@ -68,8 +73,8 @@ const App = () => {
 
   // useEffect to make our API call whenever the page loads
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(debouncedSearch);
+  }, [debouncedSearch]);
 
   return (
     <main>

@@ -17,7 +17,7 @@ const database = new Databases(client);
 
 // Function to track searches made by different users. It will take the searchTerm and associated movie as parameter
 
-const updateSearchCount = async (searchTerm, movie) => {
+export const updateSearchCount = async (searchTerm, movie) => {
     /**
    * Logic
    * 1. Use Appwrite API to check the DB if the searchTerm exist
@@ -53,8 +53,6 @@ const updateSearchCount = async (searchTerm, movie) => {
   }
 }
 
-
-export default updateSearchCount;
 
 
 export const getTrendingMovies = async () => {

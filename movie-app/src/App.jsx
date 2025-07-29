@@ -6,7 +6,7 @@ import hero from "/hero.png";
 import Search from "./Components/Search";
 import MovieCard from './Components/MovieCard';
 import LoadingCard from './Components/Loading';
-import updateSearchCount from './appwrite';
+import { updateSearchCount, getTrendingMovies } from './appwrite';
 
 
 // Base API URL and API KEY
@@ -76,11 +76,24 @@ const App = () => {
     }
   }
 
+  // Function to load trending movies
+
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+
+      setTrendingMovies(movies);
+    }catch(error) {
+      console.error(`Error loading trending movies: ${error}`)
+    }
+  }
 
   // useEffect to make our API call whenever the page loads
   useEffect(() => {
     fetchMovies(debouncedSearch);
   }, [debouncedSearch]);
+
+  useEffect(() => {loadTrendingMovies()}, [])
 
   return (
     <main>
@@ -96,6 +109,8 @@ const App = () => {
        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       </div>
+
+     
 
       <section className='all-movies'>
         <h2 className='text-center mb-14 mt-7 text-2xl font-bold text-white sm:text-3xl'>All Movies</h2>

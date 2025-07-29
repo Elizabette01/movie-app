@@ -76,7 +76,7 @@ const App = () => {
     }
   }
 
-  // Function to load trending movies
+  // Function to load trending movies and save result to trendingMovies state
 
   const loadTrendingMovies = async () => {
     try {
@@ -110,7 +110,20 @@ const App = () => {
 
       </div>
 
-     
+      {trendingMovies.length > 0 && (
+        <section className="trending">
+          <h2 className="">Trending Movies</h2>
+
+          <ul>
+            {trendingMovies.map((movie, index) => (
+              <li key={movie.$id}>
+                <p>{index + 1}</p>
+                <img src={movie.posterURL} alt={movie.title} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className='all-movies'>
         <h2 className='text-center mb-14 mt-7 text-2xl font-bold text-white sm:text-3xl'>All Movies</h2>
